@@ -1,0 +1,55 @@
+<div class="popup-overlay" *ngIf="isVisible"></div>
+<div class="popup-container" *ngIf="isVisible">
+  <div class="popup-content">
+    <h2>Sign Up</h2>
+    <form (ngSubmit)="submitForm()" #popupForm="ngForm">
+      <div>
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+        />
+      </div>
+      <div>
+        <label for="username">UserName:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+        />
+      </div>
+      <div *ngIf="passwordError" class="error">
+        Password and Confirm Password must match.
+      </div>
+      <div class="actions">
+        <button type="submit" [disabled]="!popupForm.valid">Submit</button>
+        <button type="button" (click)="closePopup()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>

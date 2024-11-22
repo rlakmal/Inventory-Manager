@@ -1,0 +1,25 @@
+.main-layout {
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #fff;
+}
+.mat-mdc-card-subtitle{
+  color: gray;
+  font: bold 1rem "Roboto", sans-serif;
+  font-size: 40px;
+
+}
+button{
+  background-color: #c0dfff;
+}
+
+table {
+  width: 100%;
+}
+.mat-mdc-table {
+  margin-top: 35px;
+}

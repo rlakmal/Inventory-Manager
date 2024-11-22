@@ -1,0 +1,88 @@
+<div class="popup-overlay" *ngIf="isVisible"></div>
+<div class="popup-container" *ngIf="isVisible">
+  <div class="popup-content">
+    <h2>Add New Inventory Item</h2>
+    <form (ngSubmit)="submitForm()" #popupForm="ngForm">
+      <div>
+        <label for="itemType">Item Type:</label>
+        <select id="itemType" name="itemType" [(ngModel)]="itemType" required>
+          <option value="" disabled selected>Select Type</option>
+          <option value="TV">TV</option>
+          <option value="Fridge">Fridge</option>
+          <option value="Washing Machine">Washing Machine</option>
+          <option value="Laptop">Laptop</option>
+        </select>
+      </div>
+      <div>
+        <label for="itemName">Item Name:</label>
+        <input
+          type="text"
+          id="itemName"
+          name="itemName"
+          [(ngModel)]="itemName"
+          maxlength="50"
+          required
+        />
+      </div>
+      <div>
+        <label for="brand">Brand:</label>
+        <select id="brand" name="brand" [(ngModel)]="brand" required>
+          <option value="" disabled selected>Select Brand</option>
+          <option value="Samsung">Samsung</option>
+          <option value="LG">LG</option>
+          <option value="Innovex">Innovex</option>
+        </select>
+      </div>
+      <div>
+        <label for="description">Item Description:</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          maxlength="200"
+          required
+        />
+      </div>
+      <div>
+        <label for="price">Price:</label>
+        <input
+          type="text"
+          id="price"
+          name="price"
+          [(ngModel)]="price"
+          min="0"
+          required
+        />
+      </div>
+      <div>
+        <label for="expireDate">Expiry Date:</label>
+        <input
+          type="date"
+          id="expireDate"
+          name="expireDate"
+          [(ngModel)]="expireDate"
+          [disabled]="isNotApplicable"
+        />
+        <div class="not-applicable-container">
+          <input class="not-applicable-container-input"
+            type="checkbox"
+            id="notApplicable"
+            name="notApplicable"
+            [(ngModel)]="isNotApplicable"
+          />
+          <label class="not-applicable-container-label" for="notApplicable">Not Applicable</label>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <div class="actions-save">
+          <button type="submit" [disabled]="!popupForm.valid">Submit</button>
+          <button type="button" (click)="resetForm()">Clear</button>
+        </div>
+        <button type="button" (click)="closePopup()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
