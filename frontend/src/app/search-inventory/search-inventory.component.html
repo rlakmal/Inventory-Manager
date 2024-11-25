@@ -1,15 +1,44 @@
 <div class="main-layout">
   <app-slidebar></app-slidebar>
   <div class="content">
-    <h4>Dashboard</h4>
+    <h4>Search Inventories</h4>
     <div>
       <mat-card appearance="outlined">
         <mat-card-header>
           <mat-card-title> Total Inventories</mat-card-title>
           <mat-card-subtitle>{{ totalInventories }}</mat-card-subtitle>
         </mat-card-header>
+        <mat-card-content>
+          <!-- Criteria Section -->
+          <div class="criteria-container">
+            <!-- Item Name Input -->
+            <mat-form-field appearance="fill" class="criteria-field">
+              <mat-label>Item Name</mat-label>
+              <input matInput type="text" [(ngModel)]="searchInputs.itemName" name="itemName" />
+            </mat-form-field>
+
+            <!-- Item Type Single Selection -->
+            <mat-form-field appearance="fill" class="criteria-field">
+              <mat-label>Item Type</mat-label>
+              <mat-select [(ngModel)]="searchInputs.itemType">
+                <mat-option  *ngFor="let type of itemTypes" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="criteria-field">
+              <mat-label>Brand</mat-label>
+              <mat-select multiple [(ngModel)]="searchInputs.brands" >
+                <mat-option *ngFor="let brand of brands" [value]="brand">
+                  {{ brand }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
         <mat-card-actions >
-          <button mat-button (click)="openPopup()">Add Item</button>
+          <button mat-button (click)="searchInventory(currentPage)" >Search</button>
           <button mat-button (click)="nextPage()" [disabled]="!hasMoreData || isLoading">
             {{ isLoading ? 'Loading...' : 'More' }}
           </button>
@@ -50,7 +79,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-<!--        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>-->
+        <!--        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>-->
       </div>
 
 
@@ -58,4 +87,3 @@
     </div>
   </div>
 </div>
-<app-add-inventory #popup></app-add-inventory>

@@ -34,12 +34,12 @@
         </select>
       </div>
       <div>
-        <label for="description">Item Description:</label>
+        <label for="itemDescription">Item Description:</label>
         <input
           type="text"
-          id="description"
-          name="description"
-          [(ngModel)]="description"
+          id="itemDescription"
+          name="itemDescription"
+          [(ngModel)]="itemDescription"
           maxlength="200"
           required
         />
@@ -47,7 +47,7 @@
       <div>
         <label for="price">Price:</label>
         <input
-          type="text"
+          type="number"
           id="price"
           name="price"
           [(ngModel)]="price"
