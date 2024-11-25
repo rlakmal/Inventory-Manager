@@ -39,7 +39,7 @@ public class InventoryController {
     }
 
     @GetMapping(
-            params = {"page","size"}
+            params = {"page"}
 
     )
     public StandardResponse getAllItems(
@@ -50,7 +50,7 @@ public class InventoryController {
         return inventoryService.getItems(page,size);
     }
 
-    @GetMapping(params = {"page"})
+    @GetMapping(params = {"page","size"})
     public StandardResponse searchInventory(
             @RequestParam(value = "page") int page,
             @RequestParam(value = "size",defaultValue = "10") int size,
