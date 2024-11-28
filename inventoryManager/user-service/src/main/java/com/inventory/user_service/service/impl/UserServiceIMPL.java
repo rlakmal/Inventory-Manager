@@ -6,6 +6,8 @@ import com.inventory.user_service.entity.UserEntity;
 import com.inventory.user_service.exception.AlreadyExistingException;
 import com.inventory.user_service.exception.PasswordMismatchException;
 import com.inventory.user_service.repo.UserRepo;
+import com.inventory.user_service.security.CustomUserDetailService;
+import com.inventory.user_service.security.JwtService;
 import com.inventory.user_service.service.UserService;
 import com.inventory.user_service.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,12 @@ public class UserServiceIMPL implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private CustomUserDetailService customUserDetailService;
+
     @Override
     public StandardResponse loginUser(LoginDTO loginDTO) {
         UserDTO userDTO = null;
@@ -45,6 +53,7 @@ public class UserServiceIMPL implements UserService {
             if (authentication.isAuthenticated()) {
                 UserEntity user = userRepo.findByUsername(loginDTO.getUsername());
                 userDTO = new UserDTO(
+                        jwtService.generateToken(customUserDetailService.loadUserByUsername(loginDTO.getUsername())),
                         user.getUserId(),
                         user.getUsername(),
                         user.getEmail(),

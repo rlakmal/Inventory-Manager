@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,9 +31,12 @@ export class InventoryService {
     );
   }
   searchInventory(params: any): Observable<any> {
+    console.log(params);
     let httpParams = new HttpParams();
     Object.keys(params).forEach((key) => {
       const value = params[key];
+      console.log(key);
+
       if (Array.isArray(value)) {
         value.forEach((v) => (httpParams = httpParams.append(key, v)));
       } else if (value) {
@@ -40,9 +44,16 @@ export class InventoryService {
       }
     });
 
-    return this.http.get<any>(this.url, { params: httpParams });
+    return this.http.get<any>(this.url+"/search",{ params: httpParams });
   }
 
 
+  deleteInventory(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.url}/${id}`)
+  }
 
+  updateInventory(id:any,result:any): Observable<any> {
+    return this.http.put(`${this.url}/${id}`, result)
+
+}
 }

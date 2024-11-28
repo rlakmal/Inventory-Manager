@@ -40,7 +40,6 @@ public class InventoryController {
 
     @GetMapping(
             params = {"page"}
-
     )
     public StandardResponse getAllItems(
             @RequestParam(value = "page") int page,
@@ -50,7 +49,9 @@ public class InventoryController {
         return inventoryService.getItems(page,size);
     }
 
-    @GetMapping(params = {"page","size"})
+    @GetMapping(
+            path = "/search",
+            params = {"page"})
     public StandardResponse searchInventory(
             @RequestParam(value = "page") int page,
             @RequestParam(value = "size",defaultValue = "10") int size,
@@ -59,7 +60,7 @@ public class InventoryController {
             @RequestParam(value = "brands",required = false)List<String> brands
             ){
         System.out.println(brands);
-        return inventoryService.searchInventory(page,size,itemName,itemType,brands);
+        return inventoryService.searchInventory(page-1,size,itemName,itemType,brands);
 
     }
 

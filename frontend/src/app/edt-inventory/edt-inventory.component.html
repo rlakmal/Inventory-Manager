@@ -1,0 +1,49 @@
+<div>
+  <h2 mat-dialog-title>Edit Inventory</h2>
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Item Name</mat-label>
+      <input matInput [(ngModel)]="formData.itemName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Item Type</mat-label>
+      <mat-select id="itemType" name="itemType" [(ngModel)]="formData.itemType" required>
+        <mat-option value="TV">TV</mat-option>
+        <mat-option value="Fridge">Fridge</mat-option>
+        <mat-option value="Washing Machine">Washing Machine</mat-option>
+        <mat-option value="Laptop">Laptop</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Brand</mat-label>
+      <mat-select id="brand" name="brand" [(ngModel)]="formData.brand" required>
+        <mat-option value="Samsung">Samsung</mat-option>
+        <mat-option value="LG">LG</mat-option>
+        <mat-option value="Innovex">Innovex</mat-option>
+        <mat-option value="Panasonic">Panasonic</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="formData.itemDescription"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Price</mat-label>
+      <input type="number" matInput [(ngModel)]="formData.price" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Expiry Date</mat-label>
+      <input type="date" matInput [(ngModel)]="formData.expireDate" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" (click)="onSave()">Save</button>
+  </div>
+</div>

@@ -16,7 +16,7 @@
   <modules>
     <module>user-service</module>
     <module>inventory-service</module>
-      <module>base</module>
+    <module>gateway-service</module>
   </modules>
   <build>
     <plugins>

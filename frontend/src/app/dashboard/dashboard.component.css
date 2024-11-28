@@ -6,6 +6,7 @@
   flex-grow: 1;
   padding: 2rem;
   background-color: #fff;
+  overflow: hidden;
 }
 .mat-mdc-card-subtitle{
   color: gray;

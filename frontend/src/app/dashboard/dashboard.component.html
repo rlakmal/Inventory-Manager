@@ -13,7 +13,7 @@
           <button mat-button (click)="nextPage()" [disabled]="!hasMoreData || isLoading">
             {{ isLoading ? 'Loading...' : 'More' }}
           </button>
-          <button mat-button (click)="prevPage()"[disabled]="currentPage == 0">Back</button>
+          <button mat-button (click)="prevPage()" [disabled]="currentPage == 0">Back</button>
         </mat-card-actions>
       </mat-card>
       <div class="table-container">

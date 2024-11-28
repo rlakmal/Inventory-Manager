@@ -1,0 +1,28 @@
+<div class="main-layout">
+  <app-slidebar></app-slidebar>
+  <div class="content">
+    <h4>Edit Profile</h4>
+    <div class="settings-wrapper">
+      <div class="settings-image">
+        <img Src="/profile.jpg" alt="profile image" />
+      </div>
+
+      <div class="settings-container">
+        <h6>Edit Profile</h6>
+        <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="text" formControlName="email" />
+          </div>
+          <div class="form-group">
+            <label for="username">UserName</label>
+            <div class="username">
+              <input id="username" type="text" formControlName="username" />
+            </div>
+          </div>
+          <button type="submit" [disabled]="settingsForm.invalid">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
