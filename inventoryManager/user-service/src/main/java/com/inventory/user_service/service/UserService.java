@@ -8,4 +8,8 @@ public interface UserService {
     StandardResponse loginUser(LoginDTO loginDTO);
 
     StandardResponse registerUser(RegisterDTO registerDTO);
+
+    StandardResponse fetchUserDetail();
+
+    StandardResponse updateProfile(String email, String name,Integer userId);
 }

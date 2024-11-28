@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,7 @@ public class UserServiceIMPL implements UserService {
                         user.getName()
                 );
             }
+
             return new StandardResponse(200, "Login Successful", userDTO);
         }else {
             throw new UsernameNotFoundException("UserName Not Found");
@@ -82,12 +84,60 @@ public class UserServiceIMPL implements UserService {
                 passwordEncoder.encode(registerDTO.getPassword())
 
         );
-
-        System.out.println(user);
         userRepo.save(user);
 
         return new StandardResponse(200,"Register Success",user);
     }
+
+    @Override
+    public StandardResponse fetchUserDetail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated()){
+            String userName = authentication.getName();
+            UserEntity user = userRepo.findByUsername(userName);
+            UserDTO userDTO = new UserDTO(
+                    user.getUserId(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getName()
+            );
+            return new StandardResponse(200,"success",userDTO);
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public StandardResponse updateProfile(String email, String name, Integer userId) {
+        UserEntity user = userRepo.getReferenceById(userId);
+        if (!email.equals(user.getEmail())) {
+            boolean isUserExists = userRepo.existsByEmail(email);
+            if (isUserExists) {
+                return new StandardResponse(404,"error",null);
+            } else {
+                user.setEmail(email);
+                user.setName(name);
+                userRepo.save(user);
+                if(!name.equals(user.getName())){
+                    return new StandardResponse(200, "Success",null);
+                }else{
+                    return new StandardResponse(200, "emailSuccess",null);
+                }
+
+            }
+        } else {
+            if(!name.equals(user.getName())){
+                user.setName(name);
+                userRepo.save(user);
+            }
+            return new StandardResponse(200, "nameSuccess", null);
+        }
+    }
+
+
+
+
 
     private void checkUser(String email, String username) {
         if(userRepo.existsByUsername(username)){

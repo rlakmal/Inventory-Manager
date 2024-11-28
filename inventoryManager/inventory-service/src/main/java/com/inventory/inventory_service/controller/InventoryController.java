@@ -1,6 +1,5 @@
 package com.inventory.inventory_service.controller;
 import com.inventory.inventory_service.dto.InventoryDTO;
-import com.inventory.inventory_service.repo.InventoryRepo;
 import com.inventory.inventory_service.service.InventoryService;
 import com.inventory.inventory_service.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("api/v1/inventory")
 public class InventoryController {
 

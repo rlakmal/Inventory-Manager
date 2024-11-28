@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
 @RequestMapping("api/v1/user")
 public class UserController {
 
@@ -24,10 +23,22 @@ public class UserController {
 
     @PostMapping(path = "/register")
     public StandardResponse registerUser(@RequestBody RegisterDTO registerDTO){
-        System.out.println(registerDTO);
         return userService.registerUser(registerDTO);
 
     }
 
+    @GetMapping("/details")
+    public StandardResponse getDetails(){
+        return userService.fetchUserDetail();
+    }
 
+    @PutMapping
+    public StandardResponse updateDetails(
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "userId") Integer userId
+    ){
+        return userService.updateProfile(email,name,userId);
+
+    }
 }
