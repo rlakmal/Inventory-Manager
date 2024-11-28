@@ -1,13 +1,14 @@
-package com.inventory.base;
+package com.inventory.gateway_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BaseApplication {
+public class GatewayServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BaseApplication.class, args);
+		SpringApplication.run(GatewayServiceApplication.class, args);
+		System.out.println("Gateway Running");
 	}
 
 }

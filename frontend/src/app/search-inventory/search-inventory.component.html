@@ -1,0 +1,107 @@
+<div class="main-layout">
+  <app-slidebar></app-slidebar>
+  <div class="content">
+    <h4>Search Inventories</h4>
+    <div>
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title> Total Inventories</mat-card-title>
+          <mat-card-subtitle>{{ totalInventories }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- Criteria Section -->
+          <div class="criteria-container">
+            <!-- Item Name Input -->
+            <mat-form-field appearance="fill" class="criteria-field">
+              <mat-label>Item Name</mat-label>
+              <input matInput type="text" [(ngModel)]="searchInputs.itemName" name="itemName" />
+            </mat-form-field>
+
+            <!-- Item Type Single Selection -->
+            <mat-form-field appearance="fill" class="criteria-field">
+              <mat-label>Item Type</mat-label>
+              <mat-select [(ngModel)]="searchInputs.itemType">
+                <mat-option  *ngFor="let type of itemTypes" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="criteria-field">
+              <mat-label>Brand</mat-label>
+              <mat-select multiple [(ngModel)]="searchInputs.brands" >
+                <mat-option *ngFor="let brand of brands" [value]="brand">
+                  {{ brand }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions >
+          <button mat-button (click)="searchInventory(currentPage)" >Search</button>
+          <button mat-button (click)="nextPage()" [disabled]="!hasMoreData || isLoading">
+            {{ isLoading ? 'Loading...' : 'More' }}
+          </button>
+          <button mat-button (click)="prevPage()" [disabled]="currentPage == 1">Back</button>
+          <button mat-button (click)="clear()">Clear</button>
+        </mat-card-actions>
+      </mat-card>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="itemName">
+            <th mat-header-cell *matHeaderCellDef> ItemName. </th>
+            <td mat-cell *matCellDef="let element"> {{ element.itemName }} </td>
+          </ng-container>
+          <ng-container matColumnDef="brands">
+            <th mat-header-cell *matHeaderCellDef> Brand. </th>
+            <td mat-cell *matCellDef="let element"> {{ element.brand }} </td>
+          </ng-container>
+
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="itemType">
+            <th mat-header-cell *matHeaderCellDef> ItemType </th>
+            <td mat-cell *matCellDef="let element"> {{ element.itemType }} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="expiryDate">
+            <th mat-header-cell *matHeaderCellDef> ExpiryDate </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.expireDate ? (element.expireDate | date: 'yyyy-MM-dd') : 'Not Applicable' }}
+            </td>
+
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="handleEdit(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="handleDelete(element.inventoryId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+        <!--        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>-->
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

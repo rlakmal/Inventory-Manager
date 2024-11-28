@@ -1,8 +1,10 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {UserRegisterComponent} from '../user-register/user-register.component';
 import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../service/auth.service';
 
 
 @Component({
@@ -21,9 +23,7 @@ export class LoginComponent {
 
   @ViewChild('popup') popup!:UserRegisterComponent;
 
-
-
-  constructor(private fb: FormBuilder,private router:Router) {
+  constructor(private fb: FormBuilder,private router:Router,private authService: AuthService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -34,20 +34,32 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
-
   onSubmit(): void {
-    const {username, password} = this.loginForm.value;
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      console.log('Username:', username);
-      console.log('Password:', password);
 
-      if (username === 'admin' && password === 'password') {
-        // Simulate successful login
-        this.router.navigate(['dashboard']);
-      } else {
-        alert('Invalid username or password');
-      }
+      this.authService.login(username, password).subscribe(
+        (response) => {
+          console.log('Login successful:', response);
+          if (response.code === 200) {
+            alert(response.message);
+            this.router.navigate(['/dashboard']);
+          } else {
+            alert('Invalid credentials');
+          }
+        },
+        (error) => {
+          console.log(error);
+          if(error.error.data==="UserName Not Found"){
+            alert('UserName Not Found');
+          }else {
+            alert('Incorrect Password ');
+          }
+
+        }
+      );
+    } else {
+      alert('Please fill in all required fields.');
     }
   }
 

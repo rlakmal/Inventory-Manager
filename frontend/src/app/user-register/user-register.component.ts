@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {RegisterService} from '../../service/register.service';
 
 
 
@@ -18,11 +19,14 @@ import {NgIf} from '@angular/common';
 })
 export class UserRegisterComponent {
   isVisible = false;
-  email ='';
-  password ='';
-  username ='';
-  confirmPassword ='';
+  email = '';
+  password = '';
+  username = '';
+  name = "";
+  rePassword = '';
   passwordError = false;
+
+  constructor(private registerService: RegisterService) {}
 
   public showPopup(): void {
     this.isVisible = true;
@@ -34,17 +38,50 @@ export class UserRegisterComponent {
   }
 
   submitForm(): void {
-    if(this.password !== this.confirmPassword) {
+    if (this.password !== this.rePassword) {
       this.passwordError = true;
       return;
     }
     this.passwordError = false;
-    console.log('Form submitted!', { email: this.email, password: this.password,userName: this.username });
+    console.log('Form submitted!', {email: this.email, password: this.password, userName: this.username});
+    const user = {
+      email: this.email,
+      username: this.username,
+      name: this.name,
+      password: this.password,
+      rePassword: this.rePassword,
+
+    };
+    this.registerService.register(user).subscribe(
+      (response) => {
+        console.log('Registration successful:', response);
+        if (response.code === 200) {
+          alert(response.message);
+          this.closePopup();
+        } else {
+          alert('Registration failed');
+        }
+      },
+      (error) => {
+        if(error.error.data==="Username has already taken"){
+          alert('Username already taken');
+        }else if(error.error.data==="Email has already Taken"){
+          alert('Email already taken');
+
+        }
+        console.error('Registration error:', error);
+
+      }
+    );
     this.closePopup();
   }
 
   private resetForm(): void {
     this.email = '';
     this.password = '';
+    this.rePassword='';
+    this.username = '';
+    this.name = '';
   }
+
 }

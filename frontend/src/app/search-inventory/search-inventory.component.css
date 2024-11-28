@@ -6,7 +6,6 @@
   flex-grow: 1;
   padding: 2rem;
   background-color: #fff;
-  overflow: hidden;
 }
 .mat-mdc-card-subtitle{
   color: gray;
@@ -23,4 +22,14 @@ table {
 }
 .mat-mdc-table {
   margin-top: 35px;
+}
+.criteria-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.criteria-field {
+  flex: 1;
+  min-width: 200px;
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class InventoryDTO {
-
+    private int inventoryId;
     private String itemType;
     private String itemName;
     private String brand;

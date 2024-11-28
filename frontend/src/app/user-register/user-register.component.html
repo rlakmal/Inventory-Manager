@@ -24,6 +24,16 @@
         />
       </div>
       <div>
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="name"
+          required
+        />
+      </div>
+      <div>
         <label for="password">Password:</label>
         <input
           type="password"
@@ -34,12 +44,12 @@
         />
       </div>
       <div>
-        <label for="password">Confirm Password:</label>
+        <label for="rePassword">Confirm Password:</label>
         <input
           type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          [(ngModel)]="confirmPassword"
+          id="rePassword"
+          name="rePassword"
+          [(ngModel)]="rePassword"
           required
         />
       </div>
