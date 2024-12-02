@@ -44,6 +44,7 @@ export class AddInventoryComponent {
         console.log('Add Inventory success:', response);
         if (response.code === 200) {
           alert(response.message);
+          location.reload();
           this.closePopup();
         } else {
           alert('Registration failed');

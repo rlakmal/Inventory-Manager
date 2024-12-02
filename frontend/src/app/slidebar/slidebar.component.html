@@ -13,10 +13,12 @@
       <mat-icon>settings</mat-icon>
       <span class="menu-text">Settings</span>
     </li>
-    <li class="menu-item" routerLink="/login">
+    <!-- Update the li to button for logout -->
+    <button mat-button class="logout-btn" (click)="logout()">
       <mat-icon>logout</mat-icon>
       <span class="menu-text">Logout</span>
-    </li>
+    </button>
+
 
   </ul>
 </div>

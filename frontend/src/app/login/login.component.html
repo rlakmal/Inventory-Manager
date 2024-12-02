@@ -40,8 +40,8 @@
       <button type="submit" [disabled]="loginForm.invalid">Login</button>
     </form>
     <div class="forgot-password">
-      <a href="#" (click)="onForgotPassword()">Forgot Password?</a>
-    </div>
+      <a (click)="resetPwPopup()">Forgot Password?</a>
   </div>
+    <app-reset-password #pwPopup ></app-reset-password>
 </div>
 
