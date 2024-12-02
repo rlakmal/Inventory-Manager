@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
         this.isLoading = false;
       },
       (error)=>{
-        console.log(error);
+        alert("Time Out")
       }
     );
   }

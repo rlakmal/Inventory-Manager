@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root',
 })
 export class RegisterService{
-  private url= 'http://localhost:8083/api/v1/user/register';
+  private url= 'http://localhost:8080/api/v1/user/register';
 
   constructor(private http: HttpClient) { }
 

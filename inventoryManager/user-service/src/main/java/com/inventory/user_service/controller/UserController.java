@@ -1,10 +1,10 @@
 package com.inventory.user_service.controller;
 
-import com.inventory.user_service.dto.LoginDTO;
-import com.inventory.user_service.dto.RegisterDTO;
+import com.inventory.user_service.dto.*;
 import com.inventory.user_service.service.UserService;
 import com.inventory.user_service.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -40,5 +40,21 @@ public class UserController {
     ){
         return userService.updateProfile(email,name,userId);
 
+    }
+
+    @PostMapping("/forgot-password")
+    public StandardResponse forgotPassword(@RequestBody EmailDTO emailDto ){
+        return userService.forgetPassword(emailDto);
+    }
+
+    @PostMapping("/validate-otp")
+    public StandardResponse validateOtp(@RequestBody OtpDTO otpDTO){
+        return userService.validateOtp(otpDTO);
+
+    }
+
+    @PostMapping(path = "/change-password")
+    public StandardResponse changePasswd(@RequestBody ChangePasswdDTO changePasswdDTO){
+        return userService.changePasswd(changePasswdDTO);
     }
 }

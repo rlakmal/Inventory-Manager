@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name = "user")
 @NoArgsConstructor
@@ -26,6 +29,12 @@ public class UserEntity {
 
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "otp")
+    private String otp;
+
+    @Column(name = "otp_expire")
+    private LocalDateTime otpExpire;
 
     public UserEntity(String email, String username, String name, String password) {
         this.email = email;

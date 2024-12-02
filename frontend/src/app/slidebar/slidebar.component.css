@@ -9,14 +9,17 @@
 }
 
 .logo {
+  margin-top: 30px;
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 5rem;
   margin-left: 1rem;
   color: white;
+
 }
 
 .menu {
+  flex-grow: 1; /* Make the menu take up available space */
   list-style: none;
   padding: 0;
   margin: 0;
@@ -49,4 +52,17 @@
 }
 mat-icon {
   margin-right: 10px;
+}
+.logout-btn {
+  margin-top: 40vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn mat-icon {
+  margin-right: 5px;
 }

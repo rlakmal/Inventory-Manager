@@ -5,13 +5,14 @@ import {UserRegisterComponent} from '../user-register/user-register.component';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../service/auth.service';
+import {ResetPasswordComponent} from '../reset-password/reset-password.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule, CommonModule, NgOptimizedImage, UserRegisterComponent
+    ReactiveFormsModule, CommonModule, NgOptimizedImage, UserRegisterComponent, ResetPasswordComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -22,6 +23,7 @@ export class LoginComponent {
   passwordVisible: boolean = false;
 
   @ViewChild('popup') popup!:UserRegisterComponent;
+  @ViewChild('pwPopup') pwPopup!: ResetPasswordComponent;
 
   constructor(private fb: FormBuilder,private router:Router,private authService: AuthService) {
     this.loginForm = this.fb.group({
@@ -43,6 +45,7 @@ export class LoginComponent {
           console.log('Login successful:', response);
           if (response.code === 200) {
             alert(response.message);
+            this.authService.storeToken(response.data.accessToken);
             this.router.navigate(['/dashboard']);
           } else {
             alert('Invalid credentials');
@@ -53,7 +56,7 @@ export class LoginComponent {
           if(error.error.data==="UserName Not Found"){
             alert('UserName Not Found');
           }else {
-            alert('Incorrect Password ');
+            alert(error.error.data);
           }
 
         }
@@ -63,12 +66,14 @@ export class LoginComponent {
     }
   }
 
-  onForgotPassword() {
-
-  }
-
   openPopup(): void {
     console.log('Open Popup clicked');
     this.popup.showPopup();
+  }
+
+  resetPwPopup() {
+    console.log('Reset PwPopup');
+    this.pwPopup.showPopup();
+
   }
 }

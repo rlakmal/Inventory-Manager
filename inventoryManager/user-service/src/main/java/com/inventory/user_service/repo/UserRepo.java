@@ -15,4 +15,8 @@ public interface UserRepo extends JpaRepository<UserEntity,Integer> {
 
 
     UserEntity findByUsername(String username);
+
+    UserEntity findByOtp(String otp);
+
+    boolean existsByOtp(String otp);
 }

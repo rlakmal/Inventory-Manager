@@ -1,0 +1,56 @@
+<div class="popup-overlay" *ngIf="isVisible"></div>
+<div class="popup-container" *ngIf="isVisible">
+  <div class="popup-content">
+    <p>Enter your OTP</p>
+    <form (ngSubmit)="submitForm()" #popupForm="ngForm">
+      <div>
+        <label>OTP:</label>
+        <div class="otp-input-container">
+          <input
+            type="text"
+            maxlength="1"
+            class="otp-input"
+            name="otp1"
+            [(ngModel)]="otp1"
+            (input)="moveFocus($event, 1)"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="otp-input"
+            name="otp2"
+            [(ngModel)]="otp2"
+            (input)="moveFocus($event, 2)"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="otp-input"
+            name="otp3"
+            [(ngModel)]="otp3"
+            (input)="moveFocus($event, 3)"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="otp-input"
+            name="otp4"
+            [(ngModel)]="otp4"
+            (input)="moveFocus($event, 4)"
+            required
+          />
+        </div>
+      </div>
+      <div class="actions">
+        <button type="submit" [disabled]="!popupForm.valid">Submit</button>
+        <button type="button" (click)="closePopup()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+<app-password-reset #resetPopup></app-password-reset>
+
+

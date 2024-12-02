@@ -1,7 +1,5 @@
 package com.inventory.user_service.service.impl;
-import com.inventory.user_service.dto.LoginDTO;
-import com.inventory.user_service.dto.RegisterDTO;
-import com.inventory.user_service.dto.UserDTO;
+import com.inventory.user_service.dto.*;
 import com.inventory.user_service.entity.UserEntity;
 import com.inventory.user_service.exception.AlreadyExistingException;
 import com.inventory.user_service.exception.PasswordMismatchException;
@@ -21,6 +19,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserServiceIMPL implements UserService {
     @Autowired
@@ -37,6 +40,8 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     private CustomUserDetailService customUserDetailService;
+
+    private static final SecureRandom secureRandom = new SecureRandom();
 
     @Override
     public StandardResponse loginUser(LoginDTO loginDTO) {
@@ -135,8 +140,54 @@ public class UserServiceIMPL implements UserService {
         }
     }
 
+    @Override
+    public StandardResponse forgetPassword(EmailDTO emailDto) {
+        String username = emailDto.getUsername();
+        if(!userRepo.existsByUsername(username)){
+            return new StandardResponse(400,"Error",null);
+        }
 
 
+        UserEntity user = userRepo.findByUsername(username);
+        user.setOtp(this.generateSecureOTP());
+        user.setOtpExpire(LocalDateTime.now().plusMinutes(10));
+        userRepo.save(user);
+        return new StandardResponse(200,"success",null);
+    }
+
+    @Override
+    public StandardResponse validateOtp(OtpDTO otpDTO) {
+        System.out.println(otpDTO.getOtp());
+        if(!userRepo.existsByOtp(otpDTO.getOtp()))
+            return new StandardResponse(404,"Otp Not Found",null);
+        UserEntity user = userRepo.findByOtp(otpDTO.getOtp());
+        if(user.getOtpExpire().isBefore(LocalDateTime.now()))
+            return new StandardResponse(400,"Otp Expired",null);
+
+        Map<String,String> userMap = new HashMap<>();
+        userMap.put("username",user.getUsername());
+        userMap.put("otp",user.getOtp());
+
+        return new StandardResponse(200,"success",userMap);
+
+
+    }
+
+    @Override
+    public StandardResponse changePasswd(ChangePasswdDTO changePasswdDTO) {
+        UserEntity user = userRepo.findByUsername(changePasswdDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(changePasswdDTO.getPassword()));
+        user.setOtp(null);
+        user.setOtpExpire(null);
+        userRepo.save(user);
+        return new StandardResponse(200,"success",null);
+    }
+
+
+    private String generateSecureOTP() {
+        int otp = 1000 + secureRandom.nextInt(9000);
+        return String.valueOf(otp);
+    }
 
 
     private void checkUser(String email, String username) {
