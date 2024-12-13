@@ -48,7 +48,7 @@ import {DatePipe} from '@angular/common';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['itemName', 'itemType', 'price', 'expiryDate'];
+  displayedColumns: string[] = ['no','itemName', 'itemType', 'price', 'expiryDate'];
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   dataSource= new MatTableDataSource<any>([]);
   currentPage = 0;

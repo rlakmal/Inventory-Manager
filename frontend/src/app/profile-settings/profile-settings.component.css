@@ -1,26 +1,30 @@
-/* Main Layout */
+
 .main-layout {
   display: flex;
   background-color: #ffffff;
   height: 100vh;
   font-family: 'Arial', sans-serif;
 }
-
-/* Content Area */
-.content {
-  flex-grow: 1;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+app-slidebar {
+  flex: 0 0 250px;
+  background-color: #333;
+  color: white;
+  height: 100%;
+  overflow-y: auto;
 }
 
-/* Headings */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
 .content h4 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
   color: #333;
 }
 
-/* Settings Wrapper */
 .settings-wrapper {
   display: flex;
   flex-direction: column;
@@ -28,7 +32,6 @@
   gap: 2rem;
 }
 
-/* Profile Image */
 .settings-image img {
   width: 120px;
   height: 120px;
@@ -38,7 +41,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Settings Container */
+
 .settings-container {
   width: 100%;
   max-width: 500px;
@@ -48,14 +51,13 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Headings */
+
 .settings-container h6 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
   color: #444;
 }
 
-/* Form Elements */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -75,7 +77,6 @@
   font-size: 1rem;
 }
 
-/* Button */
 button {
   padding: 0.8rem 1.5rem;
   background-color: #007bff;

@@ -69,7 +69,7 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrl: './search-inventory.component.css'
 })
 export class SearchInventoryComponent implements OnInit{
-  displayedColumns: string[] = ['itemName', 'itemType','brands', 'price', 'expiryDate','actions'];
+  displayedColumns: string[] = ['no','itemName', 'itemType','brands', 'price', 'expiryDate','actions'];
   dataSource= new MatTableDataSource<any>([]);
   currentPage = 1;
   isLoading = false;
