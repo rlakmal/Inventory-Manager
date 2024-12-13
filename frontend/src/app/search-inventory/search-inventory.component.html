@@ -9,15 +9,15 @@
           <mat-card-subtitle>{{ totalInventories }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <!-- Criteria Section -->
+
           <div class="criteria-container">
-            <!-- Item Name Input -->
+
             <mat-form-field appearance="fill" class="criteria-field">
               <mat-label>Item Name</mat-label>
               <input matInput type="text" [(ngModel)]="searchInputs.itemName" name="itemName" />
             </mat-form-field>
 
-            <!-- Item Type Single Selection -->
+
             <mat-form-field appearance="fill" class="criteria-field">
               <mat-label>Item Type</mat-label>
               <mat-select [(ngModel)]="searchInputs.itemType">
@@ -49,7 +49,11 @@
       <div class="table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-          <!-- Position Column -->
+          <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+          </ng-container>
+
           <ng-container matColumnDef="itemName">
             <th mat-header-cell *matHeaderCellDef> ItemName. </th>
             <td mat-cell *matCellDef="let element"> {{ element.itemName }} </td>
@@ -59,20 +63,16 @@
             <td mat-cell *matCellDef="let element"> {{ element.brand }} </td>
           </ng-container>
 
-
-          <!-- Name Column -->
           <ng-container matColumnDef="itemType">
             <th mat-header-cell *matHeaderCellDef> ItemType </th>
             <td mat-cell *matCellDef="let element"> {{ element.itemType }} </td>
           </ng-container>
 
-          <!-- Weight Column -->
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
             <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
           </ng-container>
 
-          <!-- Symbol Column -->
           <ng-container matColumnDef="expiryDate">
             <th mat-header-cell *matHeaderCellDef> ExpiryDate </th>
             <td mat-cell *matCellDef="let element">
